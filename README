@@ -1,0 +1,51 @@
+Name and UTEID of both team members
+Nick Blazier npb264
+Janek Lehr jjl2232
+
+Number of slip days used (this project)/(total) 
+1/1
+1/3
+
+Describe your high level design here.
+
+*Whenever a thread is created, it is put onto a queue of ready threads that is implemented as an array.
+	-A new stack is created.
+	-Pointers to its starting function and parameters are pushed onto the stack.
+*Whenever one thread yields to another thread, the requested thread is taken off the ready queue and given control. The previously running thread is put onto the ready queue.
+	-If the requested thread is not in the ready queue (i.e. it is a thread that hasn't been created yet) then control stays with the current running thread and an error code is returned.
+	
+*Whenever a thread is destroyed:
+	-If the thread is destroying itself, then it loses control and the next thread on the ready queue takes control. The old thread is gone.
+	-If it is any other thread, then the program removes the requested thread from the ready queue.
+
+Describe your testing strategy here
+(and explain how to run your tests and interpret your results)
+
+We added myTests to the make file so you just need to execute make.
+To run tests: ~$ ./myTests
+
+Strategy: 
+-Tested thread creation.
+-Tested destroying threads.
+-Tested yielding to threads.
+-Tested creating, yielding, and destroying within the root function of another thread.
+-Tested destroying invalid threads.
+-Tested yielding to an invalid thread.
+-Tested completion of a thread.
+
+
+Document your testing results here:
+
+Starting our tests....
+Testing destruction of a nonexistent thread.
+Testing creation of a thread and yielding to it.
+Testing destruction of a thread.
+Testing creation of a thread with a more complex root function, and then yielding to it.
+In the funkyTown method and the arg was passed just fine. Woohoo.
+Testing destruction of a thread that has already terminated naturally.
+You have passed all your tests! Nice dude!
+
+
+
+
+
